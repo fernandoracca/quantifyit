@@ -504,7 +504,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	/**
 	 * If the number is GREATER THAN Decimal.ZERO.
 	 * Doesn't account for positive or negative zero, infinity or NaN
-	 * @return true if code > x > 0
+	 * @return true if code > x > 0 
 	 */
 	public boolean isPositive() {
 		return gt(Decimal.ZERO);
@@ -521,7 +521,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	/**
 	 * If value is compareble to Decimal.ZERO
-	 * @return
+	 * @return true if equals zero
 	 */
 	public boolean isZero() {
 		return this.same(ZERO);
@@ -534,6 +534,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	/**
 	 * Return the plain string representation as opposed to 
 	 * BigDecimal's scientific notation
+	 * @return the significand String using .toPlainString()
 	 */
 	@Override
 	public String toString() {
@@ -542,7 +543,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	/**
 	 * Returns BigDecimals default toString 
-	 * @return
+	 * @return the significand String using .toString()
 	 */
 	public String toSciString() {
 		return significand.toString();
@@ -550,7 +551,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	/**
 	 * Engineering notation
-	 * @return
+	 * @return the significand String using .toEngineeringString()
 	 */
 	public String toEngString() {
 		return significand.toEngineeringString();
@@ -558,7 +559,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	/**
 	 * Absolute value
-	 * @return
+	 * @return the absolute value
 	 */
 	public Decimal abs() {
 		return $(significand.abs());
@@ -566,7 +567,8 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	/**
 	 * Absolute value
-	 * @return
+	 * @param roundingCriteria 
+	 * @return the absolute using roundingCriteria 
 	 */
 	public Decimal abs(final MathContext roundingCriteria) {
 		return $(significand.abs(roundingCriteria));
@@ -613,7 +615,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	/**
 	 * Apply precision to round
 	 * @param roundingCriteria
-	 * @return
+	 * @return the rounded value with specific precision
 	 */
 	public Decimal roundTo(final MathContext roundingCriteria) {
 		return $(significand.round(roundingCriteria));
@@ -622,8 +624,8 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	/**
 	 * 
 	 * @param n
-	 * @return
-	 * @see BigDecimal#movePointToLeft
+	 * @see java.math.BigDecimal#movePointLeft(int)
+	 * @return the significand with the point moved n positions  
 	 */
 	public Decimal movePointToLeft(final int n) {
 		return $(significand.movePointLeft(n));
