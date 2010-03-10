@@ -10,11 +10,11 @@ public final class Power {
     }
 
     public static <X extends Decimal> Decimal power(final X x, final int power) {
-	return Decimal.$(x.asBigDecimal().pow(power));
+        return Decimal.$(x.asBigDecimal().pow(power));
     }
 
     public static <X extends Decimal> Decimal power(final X x, final int power,
-	    final MathContext roundingCriteria) {
-	return Decimal.$(x.asBigDecimal().pow(power, roundingCriteria));
+            final MathContext roundingCriteria) {
+        return Decimal.$(x.asBigDecimal().pow(power, roundingCriteria));
     }
 }

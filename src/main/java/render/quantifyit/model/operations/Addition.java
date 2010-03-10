@@ -9,14 +9,12 @@ public final class Addition {
     private Addition() {
     }
 
-    public static <X extends Decimal, Y extends Decimal> Decimal add(final X x,
-	    final Y y) {
-	return Decimal.$(x.asBigDecimal().add(y.asBigDecimal()));
+    public static <X extends Decimal, Y extends Decimal> Decimal add(final X x, final Y y) {
+        return Decimal.$(x.asBigDecimal().add(y.asBigDecimal()));
     }
 
-    public static <X extends Decimal, Y extends Decimal> Decimal add(final X x,
-	    final Y y, final MathContext roundingCriteria) {
-	return Decimal.$(x.asBigDecimal().add(y.asBigDecimal(),
-		roundingCriteria));
+    public static <X extends Decimal, Y extends Decimal> Decimal add(final X x, final Y y,
+            final MathContext roundingCriteria) {
+        return Decimal.$(x.asBigDecimal().add(y.asBigDecimal(), roundingCriteria));
     }
 }

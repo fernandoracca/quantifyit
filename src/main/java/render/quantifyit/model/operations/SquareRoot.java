@@ -10,20 +10,19 @@ public final class SquareRoot {
     }
 
     public static Decimal squareRoot(final int squared) {
-	return Decimal.$(Math.sqrt(squared));
+        return Decimal.$(Math.sqrt(squared));
     }
 
     public static Decimal squareRoot(final double squared) {
-	return Decimal.$(Math.sqrt(squared));
+        return Decimal.$(Math.sqrt(squared));
     }
 
     public static Decimal squareRoot(final Decimal squared) {
-	return Decimal.$(Math.sqrt(squared.asDouble()));
+        return Decimal.$(Math.sqrt(squared.asDouble()));
     }
 
-    public static Decimal squareRoot(final Decimal squared,
-	    final MathContext roundingCriteria) {
-	return Decimal.$(Math.sqrt(squared.asDouble()), roundingCriteria);
+    public static Decimal squareRoot(final Decimal squared, final MathContext roundingCriteria) {
+        return Decimal.$(Math.sqrt(squared.asDouble()), roundingCriteria);
     }
 
 }

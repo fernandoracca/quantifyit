@@ -5,10 +5,10 @@ import render.quantifyit.model.Decimal;
 public class SampleSummary extends Summary {
 
     public SampleSummary(final Decimal... dataSet) {
-	super(dataSet);
+        super(dataSet);
     }
 
     public Decimal getStandardDeviation() {
-	return Dispersion.sampleStandardDeviation(getMean(), getDataSet());
+        return Dispersion.sampleStandardDeviation(getMean(), getDataSet());
     }
 }

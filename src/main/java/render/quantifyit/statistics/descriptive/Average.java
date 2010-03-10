@@ -21,14 +21,14 @@ public final class Average {
      * @return the mean value
      */
     public static Decimal mean(final Decimal... elements) {
-	DecimalUtils.notNullOrEmpty(elements);
-	int count = 0;
-	Decimal sum = Decimal.ZERO;
-	for (Decimal element : elements) {
-	    sum = sum.plus(element);
-	    count++;
-	}
-	return sum.divideBy(count);
+        DecimalUtils.notNullOrEmpty(elements);
+        int count = 0;
+        Decimal sum = Decimal.ZERO;
+        for (Decimal element : elements) {
+            sum = sum.plus(element);
+            count++;
+        }
+        return sum.divideBy(count);
     }
 
     /**
@@ -49,18 +49,17 @@ public final class Average {
      * @return the median of a series of numbers in Decimal
      */
     public static Decimal median(final Decimal... elements) {
-	DecimalUtils.notNullOrEmpty(elements);
-	Arrays.sort(elements);
-	Decimal median; // no need for initialization
-	final int medianPosition = elements.length / 2;
+        DecimalUtils.notNullOrEmpty(elements);
+        Arrays.sort(elements);
+        Decimal median; // no need for initialization
+        final int medianPosition = elements.length / 2;
 
-	if (elements.length % 2 == 0) {
-	    median = (elements[medianPosition - 1]
-		    .plus(elements[medianPosition])).halve();
-	} else {
-	    median = elements[medianPosition];
-	}
-	return median;
+        if (elements.length % 2 == 0) {
+            median = (elements[medianPosition - 1].plus(elements[medianPosition])).halve();
+        } else {
+            median = elements[medianPosition];
+        }
+        return median;
     }
 
     /**
@@ -73,43 +72,43 @@ public final class Average {
      * @return the mode
      */
     public static Decimal[] mode(final Decimal... elements) {
-	DecimalUtils.notNullOrEmpty(elements);
-	if (elements.length == 1) {
-	    return new Decimal[] { elements[0] };
-	}
-	Arrays.sort(elements);
+        DecimalUtils.notNullOrEmpty(elements);
+        if (elements.length == 1) {
+            return new Decimal[] { elements[0] };
+        }
+        Arrays.sort(elements);
 
-	final Set<Decimal> modes = findModes(elements);
+        final Set<Decimal> modes = findModes(elements);
 
-	return modes.toArray(new Decimal[modes.size()]);
+        return modes.toArray(new Decimal[modes.size()]);
     }
 
     private static Set<Decimal> findModes(final Decimal... elements) {
-	final Set<Decimal> modes = new HashSet<Decimal>();
-	Decimal last = elements[0];
-	Decimal current = null;
-	int counter = 1;
-	int maxCount = 1;
-	for (int i = 1; i < elements.length; i++) {
-	    current = elements[i];
-	    if (last.same(current)) {
-		counter++;
-	    } else {
-		if (counter > maxCount) {
-		    maxCount = counter;
-		    modes.clear();
-		    modes.add(last);
-		} else if (counter == maxCount) {
-		    modes.add(last);
-		}
-		last = current;
-		counter = 1;
-	    }
-	}
-	if (counter == maxCount) {
-	    modes.add(last);
-	}
-	return modes;
+        final Set<Decimal> modes = new HashSet<Decimal>();
+        Decimal last = elements[0];
+        Decimal current = null;
+        int counter = 1;
+        int maxCount = 1;
+        for (int i = 1; i < elements.length; i++) {
+            current = elements[i];
+            if (last.same(current)) {
+                counter++;
+            } else {
+                if (counter > maxCount) {
+                    maxCount = counter;
+                    modes.clear();
+                    modes.add(last);
+                } else if (counter == maxCount) {
+                    modes.add(last);
+                }
+                last = current;
+                counter = 1;
+            }
+        }
+        if (counter == maxCount) {
+            modes.add(last);
+        }
+        return modes;
     }
 
 }

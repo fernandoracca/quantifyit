@@ -5,15 +5,14 @@ import render.quantifyit.model.Decimal;
 public class PopulationSummary extends Summary {
 
     public PopulationSummary(final Decimal... dataSet) {
-	super(dataSet);
+        super(dataSet);
     }
 
     public Decimal getStandardDeviation() {
-	return Dispersion.populationStandardDeviation(getDataSet());
+        return Dispersion.populationStandardDeviation(getDataSet());
     }
 
     public Decimal zScoreFor(final int index) {
-	return Dispersion.zScore(dataSet[index], getMean(),
-		getStandardDeviation());
+        return Dispersion.zScore(dataSet[index], getMean(), getStandardDeviation());
     }
 }

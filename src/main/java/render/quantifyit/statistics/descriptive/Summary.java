@@ -8,12 +8,12 @@ public abstract class Summary {
     protected final transient Decimal[] dataSet;
 
     public Summary(final Decimal... dataSet) {
-	DecimalUtils.notNullOrEmpty(dataSet);
-	this.dataSet = dataSet;
+        DecimalUtils.notNullOrEmpty(dataSet);
+        this.dataSet = dataSet;
     }
 
     public Decimal getMean() {
-	return Average.mean(getDataSet());
+        return Average.mean(getDataSet());
     }
 
     public abstract Decimal getStandardDeviation();
@@ -24,7 +24,7 @@ public abstract class Summary {
      * @return returns a copy of internal dataset structure.
      */
     public Decimal[] getDataSet() {
-	return dataSet.clone(); // We return a copy to avoid returning the
-				// mutable field
+        return dataSet.clone(); // We return a copy to avoid returning the
+        // mutable field
     }
 }
