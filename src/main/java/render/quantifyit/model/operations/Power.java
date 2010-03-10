@@ -6,13 +6,15 @@ import render.quantifyit.model.Decimal;
 
 public final class Power {
 
-	private Power() {}
-	
-	public static <X extends Decimal> Decimal power(final X x, final int power) {
-		return Decimal.$(x.asBigDecimal().pow(power));
-	}
+    private Power() {
+    }
 
-	public static <X extends Decimal> Decimal power(final X x, final int power, final MathContext roundingCriteria) {
-		return Decimal.$(x.asBigDecimal().pow(power, roundingCriteria));
-	}
+    public static <X extends Decimal> Decimal power(final X x, final int power) {
+	return Decimal.$(x.asBigDecimal().pow(power));
+    }
+
+    public static <X extends Decimal> Decimal power(final X x, final int power,
+	    final MathContext roundingCriteria) {
+	return Decimal.$(x.asBigDecimal().pow(power, roundingCriteria));
+    }
 }

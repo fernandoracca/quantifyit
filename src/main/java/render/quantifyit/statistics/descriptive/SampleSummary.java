@@ -4,11 +4,11 @@ import render.quantifyit.model.Decimal;
 
 public class SampleSummary extends Summary {
 
-	public SampleSummary(final Decimal... dataSet) {
-		super(dataSet);
-	}
-	
-	public Decimal getStandardDeviation() {
-		return Dispersion.sampleStandardDeviation(getMean(), getDataSet());
-	}
+    public SampleSummary(final Decimal... dataSet) {
+	super(dataSet);
+    }
+
+    public Decimal getStandardDeviation() {
+	return Dispersion.sampleStandardDeviation(getMean(), getDataSet());
+    }
 }
