@@ -19,31 +19,41 @@
         <java-version>1.6</java-version>
     </properties>
     <issueManagement>
-    	<system>github</system>
-    	<url>http://github.com/fractal/quantifyit/issues</url>
+        <system>github</system>
+        <url>http://github.com/fractal/quantifyit/issues</url>
     </issueManagement>
     <ciManagement>
-    	<system>hudson</system>
-    	<url>http://hudson.feniix-hq.net</url>
+        <system>hudson</system>
+        <url>http://hudson.feniix-hq.net</url>
     </ciManagement>
     <developers>
-    	<developer>
-    		<id>feniix</id>
-    		<name>Sebastian Otaegui</name>
-    		<email>feniix@gmail.com</email>
-    		<url>http://blog.feniix-hq.net</url>
-    		<timezone>-6</timezone>
-    		<roles>
-    			<role>developer</role>
-    		</roles>
-    	</developer>
+        <developer>
+            <id>feniix</id>
+            <name>Sebastian Otaegui</name>
+            <email>feniix@gmail.com</email>
+            <url>http://blog.feniix-hq.net</url>
+            <timezone>-6</timezone>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
     </developers>
     <scm>
-    	<connection>scm:git:git://github.com/fractal/quantifyit.git</connection>
-    	<developerConnection>scm:git:git@github.com:fractal/quantifyit.git</developerConnection>
-    	<tag>HEAD</tag>
-    	<url>http://github.com/fractal/quantifyit</url>
+        <connection>scm:git:git://github.com/fractal/quantifyit.git</connection>
+        <developerConnection>scm:git:git@github.com:fractal/quantifyit.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://github.com/fractal/quantifyit</url>
     </scm>
+    <distributionManagement>
+        <repository>
+            <id>release-repository</id>
+            <url>http://nexus.feniix-hq.net/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot-repository</id>
+            <url>http://nexus.feniix-hq.net/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <pluginManagement>
             <plugins>
