@@ -68,13 +68,13 @@ public class DispersionTest {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnSampleVarianceWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Dispersion.sampleVariance(nullArray);
 	}
 
 	@Test (expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnPopulationVarianceWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Dispersion.sampleVariance(nullArray);
 	}
 	
@@ -192,11 +192,10 @@ public class DispersionTest {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnStandardDeviationWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Dispersion.sampleStandardDeviation(nullArray);
 	}
 
-	
 	/**
 	 * Variance to Standard deviation
 	 */
@@ -240,7 +239,7 @@ public class DispersionTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnMinWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Dispersion.min(nullArray);
 	}
 	
@@ -262,7 +261,7 @@ public class DispersionTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnMaxWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Dispersion.min(nullArray);
 	}
 	

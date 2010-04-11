@@ -4,23 +4,21 @@ import java.math.MathContext;
 
 import render.quantifyit.model.Decimal;
 
-public final class SquareRoot {
+public class SquareRoot<X extends Decimal> implements Operation<X> {
 
-	private SquareRoot() {}
-	
-	public static Decimal squareRoot(final int squared) {
+	public Decimal eval(final int squared) {
 		return Decimal.$(Math.sqrt(squared));
 	}
 	
-	public static Decimal squareRoot(final double squared) {
+	public Decimal eval(final double squared) {
 		return Decimal.$(Math.sqrt(squared));
 	}
 	
-	public static Decimal squareRoot(final Decimal squared) {
+	public Decimal eval(final Decimal squared) {
 		return Decimal.$(Math.sqrt(squared.asDouble()));
 	}
 	
-	public static Decimal squareRoot(final Decimal squared, final MathContext roundingCriteria) {
+	public Decimal eval(final Decimal squared, final MathContext roundingCriteria) {
 		return Decimal.$(Math.sqrt(squared.asDouble()), roundingCriteria);
 	}
 	

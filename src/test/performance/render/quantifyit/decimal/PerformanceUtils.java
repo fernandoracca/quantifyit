@@ -22,26 +22,26 @@ public class PerformanceUtils {
     }
 	
 	public static Decimal end(final long executionTime) {
-        Decimal picoDuration = Decimal.$(endTime(executionTime));
+		final Decimal picoDuration = Decimal.$(endTime(executionTime));
         System.out.format("Execution finished in %s%n", formatDuration(picoDuration));
         return picoDuration;
 	}
     
     public static Decimal end(final int iterations, final long executionTime) {
-        Decimal picoDuration = Decimal.$(endTime(executionTime) / iterations);
+        final Decimal picoDuration = Decimal.$(endTime(executionTime) / iterations);
         System.out.format("Execution finished in %s%n", formatDuration(picoDuration));
         return picoDuration;
     }
     
     private static long endTime(final long executionTime) {
-    	long nanoSeconds = System.nanoTime() - executionTime;
-    	long picoDuration = nanoSeconds * THOUSAND ;
+    	final long nanoSeconds = System.nanoTime() - executionTime;
+    	final long picoDuration = nanoSeconds * THOUSAND ;
     	return picoDuration;
     }
 
 	public static void outputProperties() {
 		System.out.format("%n%nObtained on: %n");
-		String[] properties = { "java.runtime.name", 
+		final String[] properties = { "java.runtime.name", 
 				"java.specification.version", "java.version","java.runtime.version",
 				"java.vm.vendor", "java.vm.name", "java.vm.version",
 				"java.vm.specification.vendor", "java.vm.info", "java.class.version",
@@ -53,21 +53,21 @@ public class PerformanceUtils {
 	}
     
 	public static MemorySnapshot memorySnapshot() {
-		Runtime rt = Runtime.getRuntime();
+		final Runtime rt = Runtime.getRuntime();
 		final Decimal totalMemory = Decimal.$(rt.totalMemory());
 		final Decimal freeMemory = Decimal.$(rt.freeMemory());
 		return new MemorySnapshot(totalMemory, freeMemory);
 	}
 	
 	public static void memoryConsumed(final MemorySnapshot atStart) {
-		MemorySnapshot now = memorySnapshot();
+		final MemorySnapshot now = memorySnapshot();
 		
 		System.out.format("%nMemory allocated:%s%nMemory free:\t %s%nDelta:\t\t %s%n", 
 				now.getFormattedTotalAllocated(), now.getFormattedFree(), now.getFormattedDelta());
 	}
 	
 	public static void runtime() {
-		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+		final OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
 		System.out.format("Operating system: [%s %s][%s]%n", os.getName(), os.getArch(), os.getVersion());
 		
 		System.out.format("Available processors: %s%n", os.getAvailableProcessors());
@@ -78,11 +78,11 @@ public class PerformanceUtils {
 	}
 	
 	public static String systemLoad() {
-		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+		final OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
 		return systemLoad(os);
 	}
 	
-	public static String formatDuration(Decimal picoDuration) {
+	public static String formatDuration(final Decimal picoDuration) {
 		Decimal output = null;
         String unit = null;
         if ( picoDuration.gt(SECOND) ) {

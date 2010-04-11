@@ -4,15 +4,13 @@ import java.math.MathContext;
 
 import render.quantifyit.model.Decimal;
 
-public final class Power {
+public class Power<X extends Decimal> implements Operation<X> {
 
-	private Power() {}
-	
-	public static <X extends Decimal> Decimal power(final X x, final int power) {
+	public Decimal eval(final X x, final int power) {
 		return Decimal.$(x.asBigDecimal().pow(power));
 	}
 
-	public static <X extends Decimal> Decimal power(final X x, final int power, final MathContext roundingCriteria) {
+	public Decimal eval(final X x, final int power, final MathContext roundingCriteria) {
 		return Decimal.$(x.asBigDecimal().pow(power, roundingCriteria));
 	}
 }

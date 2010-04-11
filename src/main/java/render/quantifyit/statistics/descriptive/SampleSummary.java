@@ -2,13 +2,14 @@ package render.quantifyit.statistics.descriptive;
 
 import render.quantifyit.model.Decimal;
 
-public class SampleSummary extends Summary {
+public class SampleSummary<X extends Decimal> extends Summary<X> {
 
-	public SampleSummary(final Decimal... dataSet) {
+	public SampleSummary(final X... dataSet) {
 		super(dataSet);
 	}
 	
-	public Decimal getStandardDeviation() {
-		return Dispersion.sampleStandardDeviation(getMean(), getDataSet());
+	@SuppressWarnings("unchecked")
+	public X getStandardDeviation() {
+		return (X) new StandardDeviation.SampleStandardDeviation<Decimal>().eval(getMean(), getDataSet());
 	}
 }

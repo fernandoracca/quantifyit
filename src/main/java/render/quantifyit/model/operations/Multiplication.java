@@ -4,16 +4,18 @@ import java.math.MathContext;
 
 import render.quantifyit.model.Decimal;
 
-public final class Multiplication {
+public class Multiplication<X extends Decimal, Y extends Decimal> implements ArithmeticOperation<X, Y> {
 
-	private Multiplication() {}
-	
-	public static <X extends Decimal, Y extends Decimal> Decimal multiply(final X x, final Y y) {
-		return Decimal.$(x.asBigDecimal().multiply(y.asBigDecimal()));
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y) {
+		return (X) Decimal.$(x.asBigDecimal().multiply(y.asBigDecimal()));
 	}
 
-	public static <X extends Decimal, Y extends Decimal> Decimal multiply(final X x, final  Y y, final MathContext roundingCriteria) {
-		return Decimal.$(x.asBigDecimal().multiply(y.asBigDecimal(), roundingCriteria));
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y, final MathContext roundingCriteria) {
+		return (X) Decimal.$(x.asBigDecimal().multiply(y.asBigDecimal(), roundingCriteria));
 	}
 	
 }

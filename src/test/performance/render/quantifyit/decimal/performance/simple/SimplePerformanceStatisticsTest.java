@@ -64,7 +64,8 @@ public class SimplePerformanceStatisticsTest {
 		
 		bigDecimalDataSet = new BigDecimal[ELEMENTS];
 		for (int i = 0; i < bigDecimalDataSet.length; i++) {
-			bigDecimalDataSet[i] = new BigDecimal(100000 * (Math.random() + .1d)).setScale(10, RoundingMode.HALF_EVEN);
+			bigDecimalDataSet[i] = new BigDecimal(100000 * (Math.random() + .1d))
+											.setScale(10, RoundingMode.HALF_EVEN);
 		}
 		
 		if(STORE_RESULTS) {
@@ -87,9 +88,9 @@ public class SimplePerformanceStatisticsTest {
 		final String bigDecimalClassName = BigDecimal.class.getSimpleName();
 		final String doubleClassName = Double.class.getSimpleName();
 		
-		PopulationSummary decimalSummary = new PopulationSummary(decimalDuration.toArray(new Decimal[] {})); 
-		PopulationSummary bigDecimalSummary = new PopulationSummary(bigDecimalDuration.toArray(new Decimal[] {}));
-		PopulationSummary doubleSummary = new PopulationSummary(doubleDuration.toArray(new Decimal[] {})); 
+		final PopulationSummary decimalSummary = new PopulationSummary(decimalDuration.toArray(new Decimal[] {})); 
+		final PopulationSummary bigDecimalSummary = new PopulationSummary(bigDecimalDuration.toArray(new Decimal[] {}));
+		final PopulationSummary doubleSummary = new PopulationSummary(doubleDuration.toArray(new Decimal[] {})); 
 
 		System.out.format("%n%1$-20s%n%n", "Summary:");
 		
@@ -104,7 +105,8 @@ public class SimplePerformanceStatisticsTest {
 		outputDeltaRow(decimalSummary, doubleSummary, doubleClassName);
 		
 		System.out.format("Decimal takes %s times longer than %s%n", 
-				decimalSummary.getMean().divideBy(bigDecimalSummary.getMean()).format("%5.2f"),  bigDecimalClassName);
+				decimalSummary.getMean().divideBy(bigDecimalSummary.getMean()).format("%5.2f"),  
+							bigDecimalClassName);
 		System.out.format("Decimal takes %s times longer than %s%n", 
 				decimalSummary.getMean().divideBy(doubleSummary.getMean()).format("%5.2f"),  doubleClassName);
 		
@@ -307,7 +309,7 @@ public class SimplePerformanceStatisticsTest {
 		output(className, meanDelta, stdDelta);
 	}
 	
-	private static void outputTimeSpentRow(PopulationSummary summary, String label) {
+	private static void outputTimeSpentRow(final PopulationSummary summary, final String label) {
 		output(label, summary.getMean(), summary.getStandardDeviation());
 	}
 	

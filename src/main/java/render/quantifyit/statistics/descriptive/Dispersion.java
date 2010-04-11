@@ -1,51 +1,42 @@
 package render.quantifyit.statistics.descriptive;
 
-import java.util.Arrays;
-
 import render.quantifyit.model.Decimal;
-import render.quantifyit.util.DecimalUtils;
 
-public final class Dispersion {
+public class Dispersion {
 	
 	private Dispersion() {
 	}
 
-	public static Decimal sampleVariance(final Decimal mean, final Decimal[] elements) {
-		if(elements.length == 1) {
-			return Decimal.ZERO;
-		}
-		return sumOfSquaredDeltas(mean, elements).divideBy(elements.length - 1);
+	public static Decimal sampleVariance(final Decimal mean, final Decimal... elements) {
+		return new Variance.SampleVariance<Decimal>().eval(mean, elements);
 	}
 	
-	public static Decimal populationVariance(final Decimal mean, final Decimal[] elements) {
-		if(elements.length == 1) {
-			return Decimal.ZERO;
-		}
-		return sumOfSquaredDeltas(mean, elements).divideBy(elements.length);
+	public static Decimal populationVariance(final Decimal mean, final Decimal... elements) {
+		return new Variance.PopulationVariance<Decimal>().eval(mean, elements);
 	}
 	
 	public static Decimal sampleVariance(final Decimal... elements) {
-		return sampleVariance(Average.mean(elements), elements);
+		return new Variance.SampleVariance<Decimal>().eval(elements);
 	}
 	
 	public static Decimal populationVariance(final Decimal... elements) {
-		return populationVariance(Average.mean(elements), elements);
+		return new Variance.PopulationVariance<Decimal>().eval(elements);
 	}
 
 	public static Decimal sampleStandardDeviation(final Decimal mean, final Decimal... elements) {
-		return sampleVariance(mean, elements).squareRoot();
+		return new StandardDeviation.SampleStandardDeviation<Decimal>().eval(mean, elements);
 	}
 	
 	public static Decimal sampleStandardDeviation(final Decimal... elements) {
-		return sampleVariance(elements).squareRoot();
+		return new StandardDeviation.SampleStandardDeviation<Decimal>().eval(elements);
 	}
 	
 	public static Decimal populationStandardDeviation(final Decimal mean, final Decimal... elements) {
-		return populationVariance(mean, elements).squareRoot();
+		return new StandardDeviation.PopulationStandardDeviation<Decimal>().eval(mean, elements);
 	}
 	
 	public static Decimal populationStandardDeviation(final Decimal... elements) {
-		return populationVariance(elements).squareRoot();
+		return new StandardDeviation.PopulationStandardDeviation<Decimal>().eval(elements);
 	}
 
 	public static Decimal sd2Var(final Decimal standardDeviation) {
@@ -60,54 +51,25 @@ public final class Dispersion {
 	}
 	
 	public static Decimal min(final Decimal... elements) {
-		DecimalUtils.notNullOrEmpty(elements);
-		
-		Decimal min = elements[0];
-		for (Decimal element : elements) {
-			if(element.lt(min)) {
-				min = element;
-			}
-		}
-		return min;
+		return new Minimum<Decimal>().eval(elements);
 	}
 
 	public static Decimal max(final Decimal... elements) {
-		DecimalUtils.notNullOrEmpty(elements);
-		
-		Decimal max = elements[0];
-		for (Decimal element : elements) {
-			if(element.gt(max)) {
-				max = element;
-			}
-		}
-		return max;
+		return new Maximum<Decimal>().eval(elements);
+
 	}
 		
 	public static Decimal range(final Decimal... elements) {
-		DecimalUtils.notNullOrEmpty(elements);
-
-		Arrays.sort(elements);
-		
-		return elements[elements.length - 1].minus(elements[0]);
+		return new Range<Decimal>().eval(elements);
 	}
 	
 	/**
 	 * z = (x - μ)/ σ
 	 */
-	public static Decimal zScore(final Decimal element, final Decimal populationMean, final Decimal populationStandardDeviation) {
+	public static Decimal zScore(final Decimal element, 
+			final Decimal populationMean, final Decimal populationStandardDeviation) {
 		final Decimal delta = element.minus(populationMean);
 		return delta.divideBy(populationStandardDeviation);
 	}
-	
-	/**
-	 * ∑ (x - μ)^2
-	 */
-	private static Decimal sumOfSquaredDeltas(final Decimal mean, final Decimal... elements) {
-		Decimal sumOfSquaredDeltas = Decimal.ZERO;
-		for (Decimal element : elements) {  
-			sumOfSquaredDeltas = sumOfSquaredDeltas.plus(element.minus(mean).square());
-		}
-		return sumOfSquaredDeltas;
-	}	
 	
 }

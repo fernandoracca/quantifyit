@@ -2,17 +2,19 @@ package render.quantifyit.statistics.descriptive;
 
 import render.quantifyit.model.Decimal;
 
-public class PopulationSummary extends Summary {
+public class PopulationSummary<X extends Decimal> extends Summary<X> {
 	
-	public PopulationSummary(final Decimal... dataSet) {
+	public PopulationSummary(final X... dataSet) {
 		super(dataSet);
 	}
 
-	public Decimal getStandardDeviation() {
-		return Dispersion.populationStandardDeviation(getDataSet());
+	@SuppressWarnings("unchecked")
+	public X getStandardDeviation() {
+		return (X) new StandardDeviation.PopulationStandardDeviation<Decimal>().eval(getDataSet());
 	}
 
-	public Decimal zScoreFor(final int index) {
-		return Dispersion.zScore(dataSet[index], getMean(), getStandardDeviation());
+	@SuppressWarnings("unchecked")
+	public X zScoreFor(final int index) {
+		return (X) Dispersion.zScore(dataSet[index], getMean(), getStandardDeviation());
 	}
 }

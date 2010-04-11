@@ -43,7 +43,7 @@ public class AverageTest {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnMeanWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Average.mean(nullArray);
 	}
 	
@@ -70,7 +70,7 @@ public class AverageTest {
 	
 	@Test
 	public void testShouldCalculateTheMedianOfASetOfNumbers() {
-		Decimal[] elements = pack(1,2,3,4,5,6,7);
+		 Decimal[] elements = pack(1,2,3,4,5,6,7);
 		Decimal median = Average.median(elements);
 		assertDecimal(4, median);
 		
@@ -102,7 +102,7 @@ public class AverageTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnMedianWithNullArray() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Average.median(nullArray);
 	}
 	
@@ -153,7 +153,7 @@ public class AverageTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfModeHasNullElements() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		Average.mode(nullArray);
 	}
 }

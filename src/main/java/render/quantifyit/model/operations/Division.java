@@ -5,28 +5,30 @@ import java.math.RoundingMode;
 
 import render.quantifyit.model.Decimal;
 
-public final class Division {
+public class Division<X extends Decimal, Y extends Decimal> implements ArithmeticOperation<X, Y>{
 
-	private Division() {}
-	
-	public static <X extends Decimal, Y extends Decimal> Decimal divide(final X x, final Y y) {
-		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal()));
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y) {
+		return (X) Decimal.$(x.asBigDecimal().divide(y.asBigDecimal()));
 	}
 	
-	public static <X extends Decimal, Y extends Decimal> Decimal divide(final X x, final Y y, final int scale) {
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y, final MathContext roundingCriteria) {
+		return (X) Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(),roundingCriteria));
+	}
+	
+	public Decimal eval(final X x, final X y, final int scale) {
 		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(), scale));
 	}
 	
-	public static <X extends Decimal, Y extends Decimal> Decimal divide(final X x, final Y y, final RoundingMode roundingMode) {
+	public Decimal eval(final X x, final Y y, final RoundingMode roundingMode) {
 		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(), roundingMode));
 	}
 	
-	public static <X extends Decimal, Y extends Decimal> Decimal divide(final X x, final Y y, final int scale, final RoundingMode roundingMode) {
+	public Decimal eval(final X x, final Y y, final int scale, final RoundingMode roundingMode) {
 		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(), scale, roundingMode));
 	}
 	
-	public static <X extends Decimal, Y extends Decimal> Decimal divide(final X x, final Y y, 
-			final MathContext roundingCriteria) {
-		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(),roundingCriteria));
-	}
 }

@@ -4,15 +4,17 @@ import java.math.MathContext;
 
 import render.quantifyit.model.Decimal;
 
-public final class Addition {
+public class Addition<X extends Decimal, Y extends Decimal> implements ArithmeticOperation<X, Y> {
 
-	private Addition() {}
-	
-	public static <X extends Decimal, Y extends Decimal> Decimal add(final X x, final Y y) {
-		return Decimal.$(x.asBigDecimal().add(y.asBigDecimal()));
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y) {
+		return (X) Decimal.$(x.asBigDecimal().add(y.asBigDecimal()));
 	}
 
-	public static <X extends Decimal, Y extends Decimal> Decimal add(final X x, final  Y y, final MathContext roundingCriteria) {
-		return Decimal.$(x.asBigDecimal().add(y.asBigDecimal(), roundingCriteria));
+	@SuppressWarnings("unchecked")
+	@Override
+	public X eval(final X x, final Y y, final MathContext roundingCriteria) {
+		return (X) Decimal.$(x.asBigDecimal().add(y.asBigDecimal(), roundingCriteria));
 	}
 }

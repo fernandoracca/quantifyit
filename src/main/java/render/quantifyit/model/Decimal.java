@@ -5,13 +5,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import render.quantifyit.model.operations.Addition;
-import render.quantifyit.model.operations.Divide;
-import render.quantifyit.model.operations.Division;
-import render.quantifyit.model.operations.Multiplication;
-import render.quantifyit.model.operations.Power;
-import render.quantifyit.model.operations.SquareRoot;
-import render.quantifyit.model.operations.Subtraction;
+import render.quantifyit.model.operations.DecimalOperationsFactory;
+import render.quantifyit.model.operations.Operations;
 
 /**
  * Immutable, arbitrary-precision signed decimal numbers.
@@ -62,6 +57,8 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	
 	private final transient BigDecimal significand;
 	
+	private static final Operations<Decimal> operations = DecimalOperationsFactory.getInstance();
+	
 	/*
 	 * Private constructor to avoid instatiation using new 
 	 */
@@ -69,7 +66,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	private Decimal(final BigDecimal value) {
 		this.significand = value;
 	}
-
+	
 	/* static factories */
 	
 	public static Decimal $(final int value) {
@@ -144,7 +141,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the sum as immutable value 
 	 */
 	public Decimal plus(final int augend) {
-		return Addition.add(this, $(augend));
+		return operations.addition.eval(this, $(augend));
 	}
 	
 	/**
@@ -152,7 +149,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the sum as immutable value 
 	 */
 	public Decimal plus(final long augend) {
-		return Addition.add(this, $(augend));
+		return operations.addition.eval(this, $(augend));
 	}
 	
 	/**
@@ -160,7 +157,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the sum as immutable value 
 	 */
 	public Decimal plus(final double augend) {
-		return Addition.add(this, $(augend));		
+		return operations.addition.eval(this, $(augend));		
 	}
 	
 	/**
@@ -168,7 +165,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the sum as immutable value 
 	 */
 	public Decimal plus(final Decimal augend) {
-		return Addition.add(this, augend);
+		return operations.addition.eval(this, augend);
 	}
 	
 	/**
@@ -176,7 +173,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the sum as immutable value 
 	 */
 	public Decimal plus(final Decimal augend, final MathContext roundingCriteria) {
-		return Addition.add(this, augend, roundingCriteria);
+		return operations.addition.eval(this, augend, roundingCriteria);
 	}
 	
 	/*
@@ -188,7 +185,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the subtraction as immutable value 
 	 */
 	public Decimal minus(final int subtrahend) {
-		return Subtraction.subtraction(this, $(subtrahend));
+		return operations.subtraction.eval(this, $(subtrahend));
 	}
 
 	/**
@@ -196,7 +193,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the subtraction as immutable value 
 	 */
 	public Decimal minus(final long subtrahend) {
-		return Subtraction.subtraction(this, $(subtrahend));
+		return operations.subtraction.eval(this, $(subtrahend));
 	}
 	
 	/**
@@ -204,7 +201,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the subtraction as immutable value 
 	 */
 	public Decimal minus(final double subtrahend) {
-		return Subtraction.subtraction(this, $(subtrahend));
+		return operations.subtraction.eval(this, $(subtrahend));
 	}
 
 	/**
@@ -212,7 +209,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the subtraction as immutable value 
 	 */
 	public Decimal minus(final Decimal subtrahend) {
-		return Subtraction.subtraction(this, subtrahend);
+		return operations.subtraction.eval(this, subtrahend);
 	}
 	
 	/**
@@ -220,7 +217,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the subtraction as immutable value 
 	 */
 	public Decimal minus(final Decimal subtrahend, final MathContext roundingCriteria) {
-		return Subtraction.subtraction(this, subtrahend, roundingCriteria);
+		return operations.subtraction.eval(this, subtrahend, roundingCriteria);
 	}
 	
 	/*
@@ -232,7 +229,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the product as immutable value 
 	 */
 	public Decimal times(final int multiplicand) {
-		return Multiplication.multiply(this, $(multiplicand));
+		return operations.multiplication.eval(this, $(multiplicand));
 	}
 	
 	/**
@@ -240,7 +237,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the product as immutable value 
 	 */
 	public Decimal times(final long multiplicand) {
-		return Multiplication.multiply(this, $(multiplicand));
+		return operations.multiplication.eval(this, $(multiplicand));
 	}
 	
 	/**
@@ -248,7 +245,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the product as immutable value 
 	 */
 	public Decimal times(final double multiplicand) {
-		return Multiplication.multiply(this, $(multiplicand));
+		return operations.multiplication.eval(this, $(multiplicand));
 	}
 
 	/**
@@ -256,7 +253,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the product as immutable value 
 	 */
 	public Decimal times(final Decimal multiplicand) {
-		return Multiplication.multiply(this, multiplicand);
+		return operations.multiplication.eval(this, multiplicand);
 	}
 	
 	/**
@@ -264,7 +261,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the product as immutable value 
 	 */
 	public Decimal times(final Decimal multiplicand, final MathContext roundingCriteria) {
-		return Multiplication.multiply(this, multiplicand, roundingCriteria);
+		return operations.multiplication.eval(this, multiplicand, roundingCriteria);
 	}
 	
 	/*
@@ -305,7 +302,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @see render.quantifyit.model.operations.Divide
 	 */
 	public Decimal divideBy(final Decimal divisor) {
-		return Division.divide(this, divisor, DEFAULT_SCALE, DEFAULT_ROUNDING);
+		return operations.division.eval(this, divisor, DEFAULT_SCALE, DEFAULT_ROUNDING);
 	}
 	
 	/**
@@ -326,7 +323,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal power(final int power) {
-		return Power.power(this, power);
+		return operations.power.eval(this, power);
 	}
 
 	/**
@@ -334,7 +331,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal power(final int power, final MathContext roundingCriteria) {
-		return Power.power(this, power, roundingCriteria);
+		return operations.power.eval(this, power, roundingCriteria);
 	}
 	
 	/**
@@ -342,7 +339,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal square() {
-		return Power.power(this, 2);
+		return operations.power.eval(this, 2);
 	}
 	
 	/**
@@ -350,7 +347,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal cube() {
-		return Power.power(this, 3);
+		return operations.power.eval(this, 3);
 	}
 	
 	/**
@@ -358,7 +355,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal squareRoot() {
-		return SquareRoot.squareRoot(this);
+		return operations.squareRoot.eval(this);
 	}
 	
 	/**
@@ -366,7 +363,7 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * @return the result as immutable value 
 	 */
 	public Decimal squareRoot(final MathContext roundingCriteria) {
-		return SquareRoot.squareRoot(this, roundingCriteria);
+		return operations.squareRoot.eval(this, roundingCriteria);
 	}
 
 	//TODO: implement modulo

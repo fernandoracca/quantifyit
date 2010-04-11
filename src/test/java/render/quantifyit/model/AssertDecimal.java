@@ -32,9 +32,12 @@ public final class AssertDecimal {
 		assertDecimal($(expected), actual);
 	}
 	
-	public static void assertDecimal(final Decimal expected, final Decimal actual, final int scale, final RoundingMode roundingMode) {
+	public static void assertDecimal(final Decimal expected, final Decimal actual, 
+			final int scale, final RoundingMode roundingMode) {
 		if(expected.getScale() != scale) {
-			throw new AssertionError(String.format("The expected scale (%s) is not the same as the desired: (%s).", expected.getScale(), scale));
+			throw new AssertionError(String.format(
+					"The expected scale (%s) is not the same as the desired: (%s).", 
+					expected.getScale(), scale));
 		}
 		final Decimal scaledActual = actual.scaleTo(scale, roundingMode);
 		final String message = String.format(
@@ -47,7 +50,8 @@ public final class AssertDecimal {
 		assertDecimal(expected, actual, scale, RoundingMode.HALF_EVEN);
 	}
 	
-	public static void assertDecimal(final int expected, final Decimal actual, final int scale, final RoundingMode roundingMode) {
+	public static void assertDecimal(final int expected, final Decimal actual, final int scale, 
+			final RoundingMode roundingMode) {
 		assertDecimal($(expected), actual, scale, roundingMode);
 	}
 	
@@ -55,7 +59,8 @@ public final class AssertDecimal {
 		assertDecimal($(expected), actual, scale, RoundingMode.HALF_EVEN);
 	}
 	
-	public static void assertDecimal(final double expected, final Decimal actual, final int scale, final RoundingMode roundingMode) {
+	public static void assertDecimal(final double expected, final Decimal actual, final int scale, 
+			final RoundingMode roundingMode) {
 		assertDecimal($(expected), actual, scale, roundingMode);
 	}
 	

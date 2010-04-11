@@ -1,35 +1,46 @@
 package render.quantifyit.model.operations;
 
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import render.quantifyit.model.Decimal;
 
-public class Divide extends AbstractArithmeticOperation {
+public class Divide {
 	
-	protected transient Integer scaleField;
-	private transient RoundingMode roundingMode;
+	private final Decimal x;
+	private final Decimal y;
+	private  	  Integer scaleField;
+	private   	  RoundingMode roundingMode;	
+	private 	  MathContext mathContext;
 	
 	public Divide(final int x, final int y) {
-		super(x,y);
+		this(Decimal.$(x), Decimal.$(y));
 	}
 	
 	public Divide(final long x, final long y) {
-		super(x,y);
-	}
-
-	public Divide(final double x, final double y) {
-		super(x,y);
+		this(Decimal.$(x), Decimal.$(y));
 	}
 	
-	public Divide(final Decimal dividend, final Decimal divisor) {
-		super(dividend, divisor);
+	public Divide(final double x, final double y) {
+		this(Decimal.$(x), Decimal.$(y));
+	}
+	
+	public  Divide(final Decimal dividend, final Decimal divisor) {
 		if(divisor.isZero()) {
 			if(dividend.isZero()) {
 				throw new ArithmeticException("Division undefined: 0 / 0 is Not a Number");
 			}
 			throw new ArithmeticException(String.format("Divide by zero exception: %s / 0", dividend));
 		}
+		this.x = dividend;
+		this.y = divisor;
 	}
+	public Divide precision(final int precision) {
+		this.mathContext = new MathContext(precision);
+		return this;
+	}
+	
+
 
 	public Divide scale(final Integer scale) {
 		this.scaleField = scale;
@@ -51,22 +62,23 @@ public class Divide extends AbstractArithmeticOperation {
 		return this;
 	}
 	
-	@Override
 	public Decimal eval() {
+		final Division<Decimal, Decimal> division = new Division<Decimal, Decimal>();
+		
 		if(mathContext != null ) {
-			return Division.divide(x, y, mathContext);
+			return division.eval(x, y, mathContext);
 		}
 		
 		final boolean hasScale = scaleField != null;
 		final boolean hasRoundingMode = roundingMode != null;
 		if (hasScale && hasRoundingMode ) {
-			return Division.divide(x, y, scaleField, roundingMode);
+			return division.eval(x, y, scaleField, roundingMode);
 		}
 		if ( hasRoundingMode ) {
-			return Division.divide(x, y, roundingMode);
+			return division.eval(x, y, roundingMode);
 		} 
-
-		return Division.divide(x, y);
+		
+		return division.eval(x, y);
 	}
 
 }

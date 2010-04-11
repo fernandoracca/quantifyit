@@ -20,61 +20,64 @@ import render.quantifyit.model.Decimal;
 
 public class DecimalUtilsTest {
 
+	private static final int THREE = 3;
+
 	@Test
 	public void testPackInts() {
-		final Decimal[] ints = DecimalUtils.packInts(1, 2, 3);
-		assertEquals(3, ints.length);
+		final Decimal[] ints = DecimalUtils.packInts(1, 2, THREE);
+		assertEquals(THREE, ints.length);
 	}
 	
 	@Test
 	public void testPackLongs() {
 		final Decimal[] longs = DecimalUtils.packLongs(23142341234123412L, 345235234523532453L, new Date().getTime());
-		assertEquals(3, longs.length);
+		assertEquals(THREE, longs.length);
 	}
 	
 
 	@Test
 	public void testPackDoubles() {
 		final Decimal[] doubles = DecimalUtils.pack(123.456, 5635.32353, 6754353.4234);
-		assertEquals(3, doubles.length);
+		assertEquals(THREE, doubles.length);
 	}
 	
 	@Test
 	public void testPackIntList() {
-		final List<Decimal> ints = DecimalUtils.packIntList(1, 2, 3);
-		assertEquals(3, ints.size());
+		final List<Decimal> ints = DecimalUtils.packIntList(1, 2, THREE);
+		assertEquals(THREE, ints.size());
 	}
 	
 	@Test
 	public void testPackLongList() {
-		final List<Decimal> longs = DecimalUtils.packLongList(23142341234123412L, 345235234523532453L, new Date().getTime());
-		assertEquals(3, longs.size());
+		final List<Decimal> longs = 
+			DecimalUtils.packLongList(23142341234123412L, 345235234523532453L, new Date().getTime());
+		assertEquals(THREE, longs.size());
 	}
 
 	@Test
 	public void testPackDoubleList() {
 		final List<Decimal> doubles = DecimalUtils.packList(123.456, 5635.32353, 6754353.4234);
-		assertEquals(3, doubles.size());
+		assertEquals(THREE, doubles.size());
 	}
 	
 	@Test
 	public void testUltraPack() {
 		final Decimal[] doubles = DecimalUtils.$$(123.456, 5635.32353, 6754353.4234);
-		assertEquals(3, doubles.length);
+		assertEquals(THREE, doubles.length);
 	}
 	
 	
 	@Test
 	public void testShouldAddUniqueElementsIntoAHashSet() { 
-		Set<Decimal> decimals = new HashSet<Decimal>(); 
+		final Set<Decimal> decimals = new HashSet<Decimal>(); 
 		decimals.add(Decimal.$(1));
 		decimals.add(Decimal.ONE);
 		decimals.add(Decimal.$(2));
 		decimals.add(Decimal.TWO);
-		decimals.add(Decimal.$(3));
+		decimals.add(Decimal.$(THREE));
 		decimals.add(Decimal.THREE);
 		
-		assertEquals(3, decimals.size());
+		assertEquals(THREE, decimals.size());
 		assertTrue(decimals.contains(Decimal.ONE));
 		assertTrue(decimals.contains(Decimal.TWO));
 		assertTrue(decimals.contains(Decimal.THREE));
@@ -86,18 +89,18 @@ public class DecimalUtilsTest {
 	 */
 	@Test
 	public void testShouldAddUniqueElementsIntoASet() { 
-		Set<Decimal> decimals = new TreeSet<Decimal>(); 
+		final Set<Decimal> decimals = new TreeSet<Decimal>(); 
 		decimals.add(Decimal.$(1));
 		decimals.add(Decimal.ONE);
 		decimals.add(Decimal.$(1.0d));
 		decimals.add(Decimal.$(2));
 		decimals.add(Decimal.TWO);
 		decimals.add(Decimal.$(2.0d));
-		decimals.add(Decimal.$(3));
+		decimals.add(Decimal.$(THREE));
 		decimals.add(Decimal.THREE);
 		decimals.add(Decimal.$(3.0d));
 		
-		assertEquals(3, decimals.size());
+		assertEquals(THREE, decimals.size());
 		assertTrue(decimals.contains(Decimal.ONE));
 		assertTrue(decimals.contains(Decimal.TWO));
 		assertTrue(decimals.contains(Decimal.THREE));
@@ -105,7 +108,7 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testShouldAddUniqueDecimalElementsIntoASet() { 
-		Set<Decimal> decimals = new TreeSet<Decimal>(); 
+		final Set<Decimal> decimals = new TreeSet<Decimal>(); 
 		decimals.add(Decimal.ONE.divideBy(10));
 		decimals.add(Decimal.$(.1d));
 		decimals.add(Decimal.TWO.divideBy(10));
@@ -113,7 +116,7 @@ public class DecimalUtilsTest {
 		decimals.add(Decimal.THREE.divideBy(10));
 		decimals.add(Decimal.$(.3d));
 		
-		assertEquals(3, decimals.size());
+		assertEquals(THREE, decimals.size());
 		assertTrue(decimals.contains(Decimal.$("0.1")));
 		assertTrue(decimals.contains(Decimal.$("0.2")));
 		assertTrue(decimals.contains(Decimal.$("0.3")));
@@ -121,7 +124,7 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testFailsToReplaceUniqueDecimalsIntoAHashSet() { 
-		Set<Decimal> decimals = new HashSet<Decimal>(); 
+		final Set<Decimal> decimals = new HashSet<Decimal>(); 
 		decimals.add(Decimal.ONE);
 		decimals.add(Decimal.$(.1d));
 		
@@ -135,7 +138,7 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testFailsToReplaceUniqueBigDecimalsIntoAHashSet() {
-		Set<BigDecimal> bigDecimals = new HashSet<BigDecimal>(); 
+		final Set<BigDecimal> bigDecimals = new HashSet<BigDecimal>(); 
 		bigDecimals.add(BigDecimal.ONE.divide(BigDecimal.TEN));
 		bigDecimals.add(new BigDecimal(.1d));
 		
@@ -151,18 +154,18 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testShouldAddDecimalsAsKeysForAMap() {
-		Map<Decimal, String> decimals = new TreeMap<Decimal, String>();
+		final Map<Decimal, String> decimals = new TreeMap<Decimal, String>();
 		decimals.put(Decimal.$(1), "asdf");
 		decimals.put(Decimal.ONE, "asdf");
 		decimals.put(Decimal.$(1d), "ASDF");
 		decimals.put(Decimal.$(2), "qwer");
 		decimals.put(Decimal.TWO, "qwer");
 		decimals.put(Decimal.$(2d), "QWER");
-		decimals.put(Decimal.$(3), "zxcv");
+		decimals.put(Decimal.$(THREE), "zxcv");
 		decimals.put(Decimal.THREE, "zxcv");
 		decimals.put(Decimal.$(3d), "ZXCV");
 		
-		assertEquals(3, decimals.size());
+		assertEquals(THREE, decimals.size());
 		assertTrue(decimals.containsKey(Decimal.ONE));
 		assertTrue(decimals.containsKey(Decimal.TWO));
 		assertTrue(decimals.containsKey(Decimal.THREE));
@@ -179,9 +182,9 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testThatAListOfDecimalCanContainAllTheElementsOfAnotherListIfTheyAreTheSame() {
-		final Decimal[] doubles = DecimalUtils.pack(1,2,1,2,3,4,3,4,5,6,5,6,7,8,7,8);
+		final Decimal[] doubles = DecimalUtils.pack(1,2,1,2,THREE,4,THREE,4,5,6,5,6,7,8,7,8);
 		final List<Decimal> doublesList = Arrays.asList(doubles);
-		final List<Decimal> intsList = Arrays.asList(DecimalUtils.packInts(1,2,3,4,5,6,7,8));
+		final List<Decimal> intsList = Arrays.asList(DecimalUtils.packInts(1,2,THREE,4,5,6,7,8));
 		
 		assertFalse(doublesList.containsAll(intsList));
 		assertFalse(intsList.containsAll(doublesList));
@@ -191,9 +194,9 @@ public class DecimalUtilsTest {
 	
 	@Test
 	public void testASetOfDecimals() {
-		final List<Decimal> doublesList = Arrays.asList(DecimalUtils.pack(1,2,1,2,3,4,3,4,5,6,5,6,7,8,7,8));
+		final List<Decimal> doublesList = Arrays.asList(DecimalUtils.pack(1,2,1,2,THREE,4,THREE,4,5,6,5,6,7,8,7,8));
 		final Set<Decimal> doublesSet = new TreeSet<Decimal>(doublesList);
-		final Set<Decimal> intsSet = new TreeSet<Decimal>(Arrays.asList(DecimalUtils.packInts(1,2,3,4,5,6,7,8)));
+		final Set<Decimal> intsSet = new TreeSet<Decimal>(Arrays.asList(DecimalUtils.packInts(1,2,THREE,4,5,6,7,8)));
 		
 		assertEquals(8, intsSet.size());
 		assertEquals(8, doublesSet.size());
@@ -210,13 +213,13 @@ public class DecimalUtilsTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfModeHasNullElements() {
-		Decimal[] nullArray = null;
+		final Decimal[] nullArray = null;
 		DecimalUtils.notNullOrEmpty(nullArray);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionOnModeWithNullVararg() {
-		Decimal nullObject = null;
+		final Decimal nullObject = null;
 		DecimalUtils.notNullOrEmpty(nullObject);
 	}
 

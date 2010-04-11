@@ -28,7 +28,7 @@ public class DecimalAgainstJavaNumbersTest {
 	
 	@Test
 	public void oneDouble() {
-		double pointOneD = .1;
+		final double pointOneD = .1;
 		double sumD = 0;
 		for (int i = 0; i < 10; i++) {
 			sumD = sumD + pointOneD;
@@ -59,7 +59,8 @@ public class DecimalAgainstJavaNumbersTest {
 	
 	@Test
 	public void testShowASimpleChainingVersusBigDecimal() {
-		final BigDecimal result = new BigDecimal(125.75).subtract(new BigDecimal(100)).add(new BigDecimal(4.25)).divide(new BigDecimal(3), new MathContext(2));
+		final BigDecimal result = new BigDecimal(125.75).subtract(new BigDecimal(100))
+							.add(new BigDecimal(4.25)).divide(new BigDecimal(3), new MathContext(2));
 		assertEquals(TEN, result);
 	
 		final Decimal actual = $(125.75).minus(100).plus(4.25).divideBy(3);
@@ -80,10 +81,12 @@ public class DecimalAgainstJavaNumbersTest {
 	
 	@Test
 	public void testArrayCreation(){
-		BigDecimal[] values = new BigDecimal[]{new BigDecimal("123.456"), new BigDecimal("5635.32353"), new BigDecimal("6754353.4234")};
+		final BigDecimal[] values = new BigDecimal[]{new BigDecimal("123.456"), 
+										new BigDecimal("5635.32353"), 
+										new BigDecimal("6754353.4234")};
 		assertEquals(3, values.length);
 		
-		Decimal[] packed = $$(123.456, 5635.32353, 6754353.4234);
+		final Decimal[] packed = $$(123.456, 5635.32353, 6754353.4234);
 		assertEquals(3, packed.length);
 	}
 }

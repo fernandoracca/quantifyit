@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: QuantifyIT
+    Checkstyle-Configuration: maven-checkstlye-plugin
     Description: none
 -->
 <module name="Checker">
@@ -91,7 +91,9 @@
     <module name="ParameterAssignment">
       <property name="severity" value="error"/>
     </module>
-    <module name="ReturnCount"/>
+    <module name="ReturnCount">
+      <property name="max" value="4"/>
+    </module>
     <module name="StringLiteralEquality">
       <property name="severity" value="error"/>
     </module>

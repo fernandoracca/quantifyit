@@ -55,7 +55,7 @@ public class DivideTest {
 		assertDecimal(230, byIntContext);
 		
 		final Decimal largeInt = new Divide(Integer.MAX_VALUE, 10).eval();
-		assertDecimal(Division.divide(Decimal.$(Integer.MAX_VALUE), Decimal.TEN), largeInt);
+		assertDecimal(new Division<Decimal,Decimal>().eval(Decimal.$(Integer.MAX_VALUE), Decimal.TEN), largeInt);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class DivideTest {
 		assertDecimal(230, byDoubleContext);
 		
 		final Decimal largeLong = new Divide(Long.MAX_VALUE, 10L).eval();
-		assertDecimal(Division.divide(Decimal.$(Long.MAX_VALUE), Decimal.TEN), largeLong);
+		assertDecimal(new Division<Decimal,Decimal>().eval(Decimal.$(Long.MAX_VALUE), Decimal.TEN), largeLong);
 	}
 	
 	@Test
@@ -85,12 +85,12 @@ public class DivideTest {
 		assertDecimal(230, byDoubleContext);
 		
 		final Decimal largeDouble = new Divide(Double.MAX_VALUE, 10d).eval();
-		assertDecimal(Division.divide(Decimal.$(Double.MAX_VALUE), Decimal.TEN), largeDouble);
+		assertDecimal(new Division<Decimal,Decimal>().eval(Decimal.$(Double.MAX_VALUE), Decimal.TEN), largeDouble);
 	}
 	
 	@Test
 	public void testDivisionWithPeriodicResult() {
-		double periodic = 312d/7d;
+		final double periodic = 312d/7d;
 		assertEquals("long period", 44.57142857142857, periodic, 0);
 
 		final Decimal withPrecision = new Divide(312, 7).precision(16).eval();
@@ -105,7 +105,7 @@ public class DivideTest {
 		final BigDecimal expected = new BigDecimal(312d).divide(new BigDecimal(7d), RoundingMode.HALF_EVEN);
 		assertEquals(new BigDecimal(45), expected);
 		
-		Decimal result = new Divide(312, 7).halfEven().eval();
+		final Decimal result = new Divide(312, 7).halfEven().eval();
 		assertDecimal(45, result);	
 	}
 	
