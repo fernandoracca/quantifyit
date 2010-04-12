@@ -9,23 +9,23 @@ import render.quantifyit.model.operations.DecimalOperationsFactory;
 import render.quantifyit.model.operations.Operations;
 
 /**
- * Immutable, arbitrary-precision signed decimal numbers.
- * Delegates the arithmetic to {@link java.math.BigDecimal}, through a consistent API
- * As a design choice, Decimal trades-off performance for 
- * precision. 
+ * Immutable, arbitrary-precision signed decimal numbers. Delegates the
+ * arithmetic to {@link java.math.BigDecimal}, through a consistent API As a
+ * design choice, Decimal trades-off performance for precision.
  * 
- * BigDecimal is a complicated class, with many pitfalls. For example,
- * which one of the 15 constructors and 3 static factories should i call? 
- * While Decimal still offers many constructors, they are there for consistency and simplification,
- * not due to support of legacy java releases.
+ * BigDecimal is a complicated class, with many pitfalls. For example, which one
+ * of the 15 constructors and 3 static factories should i call? While Decimal
+ * still offers many constructors, they are there for consistency and
+ * simplification, not due to support of legacy java releases.
  * 
- * In particular, the ones accepting double suffer the many problems associated with binary 
- * representations of floating points.
+ * In particular, the ones accepting double suffer the many problems associated
+ * with binary representations of floating points.
  * 
- * Decimal provides simple methods, with short consistent names, favouring reuse. 
+ * Decimal provides simple methods, with short consistent names, favouring
+ * reuse.
  * 
- * Decimal chooses not to extend Number, to avoid having to implement 
- * certain abstract methods. 
+ * Decimal chooses not to extend Number, to avoid having to implement certain
+ * abstract methods.
  * 
  * @author Fernando Racca
  * @see java.math.BigDecimal
@@ -401,236 +401,259 @@ public class Decimal implements Comparable<Decimal>, Serializable {
 	 * 
 	 * @return a boolean 
 	 */
+
     @Override
-	public boolean equals(final Object otherObject) {
-	    if (!(otherObject instanceof Decimal)) {
+    public boolean equals(final Object otherObject) {
+        if (!(otherObject instanceof Decimal)) {
             return false;
-	    }
+        }
         final Decimal other = (Decimal) otherObject;
         if (other == this) {
             return true;
         }
-		return this.significand.equals(other.asBigDecimal());
-	}
+        return this.significand.equals(other.asBigDecimal());
+    }
 
-	@Override
-	public int hashCode() {
-		return this.significand.hashCode();
-	}
-	
-	/**
-	 * The preferred method of comparison for equality between two Decimals.
-	 * Simplified by same(Decimal) which returns a boolean.
-	 */
-	public int compareTo(final Decimal other) {
-		return this.significand.compareTo(other.asBigDecimal());
-	}
-	
-	/**
-	 * Compares values for identical representation. Delegates to compareTo,
-	 * but is simpler to use, since it returns a boolean
-	 * @param other the value to compare
-	 * @return true if both values have exact same representation
-	 */
-	public boolean same(final Decimal other) {
-		return this.compareTo(other) == 0;
-	}
-	
-	/**
-	 * Minimum between two decimals
-	 * @param other
-	 * @return the smallest
-	 */
-	public Decimal min(final Decimal other) {
-		return (compareTo(other) <= 0 ? this : other);
-	}
-	
-	/**
-	 * Maximum between two decimals
-	 * @param other
-	 * @return the largest
-	 */
-	public Decimal max(final Decimal other) {
-		return (compareTo(other) >= 0 ? this : other);
-	}
-	
-	/**
-	 * Greater than
-	 * @param other
-	 * @return is greater than other 
-	 */
-	public boolean gt(final Decimal other) {
-		return compareTo(other) > 0;
-	}
-	
-	/**
-	 * Less than
-	 * @param other
-	 * @return is smaller than other
-	 */
-	public boolean lt(final Decimal other) {
-		return compareTo(other) < 0;
-	}
-	
-	/**
-	 * Greater or equals than
-	 * @param other
-	 * @return is greater or equal than other
-	 */
-	public boolean gte(final Decimal other) {
-		return compareTo(other) >= 0;
-	}
-	
-	/**
-	 * Less or equals than
-	 * @param other
-	 * @return is less or equal than other
-	 */
-	public boolean lte(final Decimal other) {
-		return compareTo(other) <= 0;
-	}
-	
-	/**
-	 * Whether the value is infinite
-	 * @return true according to Double.isInfinite
-	 */
-	public boolean isInfinite() {
-		return Double.isInfinite(significand.doubleValue());
-	}
-	
-	/**
-	 * If the number is GREATER THAN Decimal.ZERO.
-	 * Doesn't account for positive or negative zero, infinity or NaN
-	 * @return true if code > x > 0
-	 */
-	public boolean isPositive() {
-		return gt(Decimal.ZERO);
-	}
-	
-	/**
-	 * If the number is LOWER THAN Decimal.ZERO.
-	 * Doesn't account for positive or negative zero, infinity or NaN
-	 * @return true if code > x < 0 
-	 */
-	public boolean isNegative() {
-		return lt(Decimal.ZERO);
-	}
-	
-	/**
-	 * If value is compareble to Decimal.ZERO
-	 * @return
-	 */
-	public boolean isZero() {
-		return this.same(ZERO);
-	}
-	
-	/*
-	 * Conversion
-	 */
-	
-	/**
-	 * Return the plain string representation as opposed to 
-	 * BigDecimal's scientific notation
-	 */
-	@Override
-	public String toString() {
-		return this.significand.toPlainString();
-	}
-	
-	/**
-	 * Returns BigDecimals default toString 
-	 * @return
-	 */
-	public String toSciString() {
-		return significand.toString();
-	}
-	
-	/**
-	 * Engineering notation
-	 * @return
-	 */
-	public String toEngString() {
-		return significand.toEngineeringString();
-	}
-	
-	/**
-	 * Absolute value
-	 * @return
-	 */
-	public Decimal abs() {
-		return $(significand.abs());
-	}
-	
-	/**
-	 * Absolute value
-	 * @return
-	 */
-	public Decimal abs(final MathContext roundingCriteria) {
-		return $(significand.abs(roundingCriteria));
-	}
+    @Override
+    public int hashCode() {
+        return this.significand.hashCode();
+    }
 
-	public double asDouble() {
-		return significand.doubleValue();
-	}
-	
-	public int asInteger() {
-		return significand.intValue();
-	}
-	
-	public long asLong() {
-		return significand.longValue();
-	}
+    /**
+     * The preferred method of comparison for equality between two Decimals.
+     * Simplified by same(Decimal) which returns a boolean.
+     */
+    public int compareTo(final Decimal other) {
+        return this.significand.compareTo(other.asBigDecimal());
+    }
 
-	public BigDecimal asBigDecimal() {
-		return significand;
-	}
-	
-	/*
-	 * Precision and scale
-	 */
-		
-	/**
-	 * Scales to the specified scale, with default rounding.
-	 * @see Decimal#DEFAULT_ROUNDING
-	 */
-	public Decimal scaleTo(final int scale) {
-		return scaleTo(scale, DEFAULT_ROUNDING);
-	}
-	
-	/**
-	 * Scales with specified scale and rounding 
-	 * @param scale
-	 * @param roundingMode
-	 * @return an immutable value scaled
-	 */
-	public Decimal scaleTo(final int scale, final RoundingMode roundingMode) {
-		return $(significand.setScale(scale, roundingMode));
-	}
-	
-	/**
-	 * Apply precision to round
-	 * @param roundingCriteria
-	 * @return
-	 */
-	public Decimal roundTo(final MathContext roundingCriteria) {
-		return $(significand.round(roundingCriteria));
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 * @return
-	 * @see BigDecimal#movePointToLeft
-	 */
-	public Decimal movePointToLeft(final int n) {
-		return $(significand.movePointLeft(n));
-	}
-	
-	public int getScale() {
-		return significand.scale();
-	}
-	
-	public int getPrecision() {
-		return significand.precision();
-	}
+    /**
+     * Compares values for identical representation. Delegates to compareTo, but
+     * is simpler to use, since it returns a boolean
+     * 
+     * @param other
+     *            the value to compare
+     * @return true if both values have exact same representation
+     */
+    public boolean same(final Decimal other) {
+        return this.compareTo(other) == 0;
+    }
+
+    /**
+     * Minimum between two decimals
+     * 
+     * @param other
+     * @return the smallest
+     */
+    public Decimal min(final Decimal other) {
+        return (compareTo(other) <= 0 ? this : other);
+    }
+
+    /**
+     * Maximum between two decimals
+     * 
+     * @param other
+     * @return the largest
+     */
+    public Decimal max(final Decimal other) {
+        return (compareTo(other) >= 0 ? this : other);
+    }
+
+    /**
+     * Greater than
+     * 
+     * @param other
+     * @return is greater than other
+     */
+    public boolean gt(final Decimal other) {
+        return compareTo(other) > 0;
+    }
+
+    /**
+     * Less than
+     * 
+     * @param other
+     * @return is smaller than other
+     */
+    public boolean lt(final Decimal other) {
+        return compareTo(other) < 0;
+    }
+
+    /**
+     * Greater or equals than
+     * 
+     * @param other
+     * @return is greater or equal than other
+     */
+    public boolean gte(final Decimal other) {
+        return compareTo(other) >= 0;
+    }
+
+    /**
+     * Less or equals than
+     * 
+     * @param other
+     * @return is less or equal than other
+     */
+    public boolean lte(final Decimal other) {
+        return compareTo(other) <= 0;
+    }
+
+    /**
+     * Whether the value is infinite
+     * 
+     * @return true according to Double.isInfinite
+     */
+    public boolean isInfinite() {
+        return Double.isInfinite(significand.doubleValue());
+    }
+
+    /**
+     * If the number is GREATER THAN Decimal.ZERO. Doesn't account for positive
+     * or negative zero, infinity or NaN
+     * 
+     * @return true if code > x > 0
+     */
+    public boolean isPositive() {
+        return gt(Decimal.ZERO);
+    }
+
+    /**
+     * If the number is LOWER THAN Decimal.ZERO. Doesn't account for positive or
+     * negative zero, infinity or NaN
+     * 
+     * @return true if code > x < 0
+     */
+    public boolean isNegative() {
+        return lt(Decimal.ZERO);
+    }
+
+    /**
+     * If value is compareble to Decimal.ZERO
+     * 
+     * @return true if equals zero
+     */
+    public boolean isZero() {
+        return this.same(ZERO);
+    }
+
+    /*
+     * Conversion
+     */
+
+    /**
+     * Return the plain string representation as opposed to BigDecimal's
+     * scientific notation
+     * 
+     * @return the significand String using .toPlainString()
+     */
+    @Override
+    public String toString() {
+        return this.significand.toPlainString();
+    }
+
+    /**
+     * Returns BigDecimals default toString
+     * 
+     * @return the significand String using .toString()
+     */
+    public String toSciString() {
+        return significand.toString();
+    }
+
+    /**
+     * Engineering notation
+     * 
+     * @return the significand String using .toEngineeringString()
+     */
+    public String toEngString() {
+        return significand.toEngineeringString();
+    }
+
+    /**
+     * Absolute value
+     * 
+     * @return the absolute value
+     */
+    public Decimal abs() {
+        return $(significand.abs());
+    }
+
+    /**
+     * Absolute value
+     * 
+     * @param roundingCriteria
+     * @return the absolute using roundingCriteria
+     */
+    public Decimal abs(final MathContext roundingCriteria) {
+        return $(significand.abs(roundingCriteria));
+    }
+
+    public double asDouble() {
+        return significand.doubleValue();
+    }
+
+    public int asInteger() {
+        return significand.intValue();
+    }
+
+    public long asLong() {
+        return significand.longValue();
+    }
+
+    public BigDecimal asBigDecimal() {
+        return significand;
+    }
+
+    /*
+     * Precision and scale
+     */
+
+    /**
+     * Scales to the specified scale, with default rounding.
+     * 
+     * @see Decimal#DEFAULT_ROUNDING
+     */
+    public Decimal scaleTo(final int scale) {
+        return scaleTo(scale, DEFAULT_ROUNDING);
+    }
+
+    /**
+     * Scales with specified scale and rounding
+     * 
+     * @param scale
+     * @param roundingMode
+     * @return an immutable value scaled
+     */
+    public Decimal scaleTo(final int scale, final RoundingMode roundingMode) {
+        return $(significand.setScale(scale, roundingMode));
+    }
+
+    /**
+     * Apply precision to round
+     * 
+     * @param roundingCriteria
+     * @return the rounded value with specific precision
+     */
+    public Decimal roundTo(final MathContext roundingCriteria) {
+        return $(significand.round(roundingCriteria));
+    }
+
+    /**
+     * 
+     * @param n
+     * @see java.math.BigDecimal#movePointLeft(int)
+     * @return the significand with the point moved n positions
+     */
+    public Decimal movePointToLeft(final int n) {
+        return $(significand.movePointLeft(n));
+    }
+
+    public int getScale() {
+        return significand.scale();
+    }
+
+    public int getPrecision() {
+        return significand.precision();
+    }
 }

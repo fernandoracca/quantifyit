@@ -30,5 +30,4 @@ public class Division<X extends Decimal, Y extends Decimal> implements Arithmeti
 	public Decimal eval(final X x, final Y y, final int scale, final RoundingMode roundingMode) {
 		return Decimal.$(x.asBigDecimal().divide(y.asBigDecimal(), scale, roundingMode));
 	}
-	
 }

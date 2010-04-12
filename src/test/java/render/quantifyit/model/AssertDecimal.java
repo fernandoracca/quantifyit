@@ -3,7 +3,6 @@ package render.quantifyit.model;
 import static org.junit.Assert.assertTrue;
 import static render.quantifyit.model.Decimal.$;
 
-
 import java.math.RoundingMode;
 
 public final class AssertDecimal {
@@ -67,5 +66,4 @@ public final class AssertDecimal {
 	public static void assertDecimal(final double expected, final Decimal actual, final int scale) {
 		assertDecimal($(expected), actual, scale, RoundingMode.HALF_EVEN);
 	}
-
 }

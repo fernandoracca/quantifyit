@@ -17,5 +17,4 @@ public class Multiplication<X extends Decimal, Y extends Decimal> implements Ari
 	public X eval(final X x, final Y y, final MathContext roundingCriteria) {
 		return (X) Decimal.$(x.asBigDecimal().multiply(y.asBigDecimal(), roundingCriteria));
 	}
-	
 }

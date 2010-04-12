@@ -176,6 +176,5 @@ public class DivideTest {
 		decimalApproximation = new Divide(355d, 113d).precision(6).eval();
 		assertDecimal(3.14159, decimalApproximation);	
 	}
-	
 
 }

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import render.quantifyit.model.Decimal;
 
-
 public class DispersionTest {
 	
 	@Test

@@ -21,5 +21,4 @@ public class SquareRoot<X extends Decimal> implements Operation<X> {
 	public Decimal eval(final Decimal squared, final MathContext roundingCriteria) {
 		return Decimal.$(Math.sqrt(squared.asDouble()), roundingCriteria);
 	}
-	
 }
