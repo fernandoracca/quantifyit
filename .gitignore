@@ -1,7 +1,7 @@
-target
 .checkstyle
 .classpath
 .pmd
 .project
 .settings
 site
+/target

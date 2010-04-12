@@ -3,7 +3,7 @@
     <groupId>render</groupId>
     <artifactId>quantify</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>quantifyit</name>
     <url>http://github.com/fractal/quantifyit</url>
     <dependencies>
