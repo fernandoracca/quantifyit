@@ -28,6 +28,15 @@
     </ciManagement>
     <developers>
         <developer>
+        	<id>fractal</id>
+        	<name>Fernando Racca</name>
+        	<email>fracca@gmail.com</email>
+        	<timezone>-1</timezone>
+        	<roles>
+        		<role>lead-developer</role>
+        	</roles>
+        </developer>
+        <developer>
             <id>feniix</id>
             <name>Sebastian Otaegui</name>
             <email>feniix@gmail.com</email>
